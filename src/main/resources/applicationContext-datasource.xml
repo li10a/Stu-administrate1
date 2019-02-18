@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<util:properties id="dbproperty" location="classpath:properties/jdbc.properties"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:properties/jdbc.properties"/>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="#{dbproperty['driverClassName']}"/>
+		<property name="url" value="#{dbproperty['url']}"/>
+		<property name="username" value="#{dbproperty['username']}"/>
+		<property name="password" value="#{dbproperty['password']}"/>
+		<property name="initialSize" value="20"/>
+		<property name="maxTotal" value="20"/>
+		<property name="maxIdle" value="20"/>
+		<property name="minIdle" value="5"/>
+
+		<!-- get pool time (ms) -->
+		<property name="maxWaitMillis" value="1000"/>
+
+		<!-- evictor -->
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+
+		<property name="testWhileIdle" value="true"/>
+		<property name="timeBetweenEvictionRunsMillis" value="30000"/>
+		<property name="numTestsPerEvictionRun" value="5"/>
+		<property name="minEvictableIdleTimeMillis" value="-1"/>
+		<property name="validationQuery" value="SELECT 0"/>
+
+		<!-- preparedStatement cache -->
+		<property name="poolPreparedStatements" value="true"/>
+		<property name="maxOpenPreparedStatements" value="50"/>
+	</bean>
+</beans>
