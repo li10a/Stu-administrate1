@@ -1,0 +1,37 @@
+/*init date*/
+
+insert into user_admin (id, password, type, class_no, register_date)
+values ('_ADMIN_', 'admin123', 'A', -1, now());
+
+/*create table*/
+create table user_admin (
+	no int not null auto_increment,
+	id varchar(20) not null,
+	password varchar(20) not null,
+	type char(1) not null,
+	class_no int not null,
+	register_date datetime not null,
+	primary key (no)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table user_student (
+	no int not null auto_increment,
+	id varchar(20) not null,
+	password varchar(20) not null,
+	name varchar(10) not null,
+	age int,
+	sex char(1),
+	idcard_no int not null,
+	membership_no int not null,
+	class_no int not null,
+	phone_no int not null,
+	telephone_no int,
+	qq_no int,
+	email varchar(20) not null,
+	address varchar(100) not null,
+	image blob,
+	type varchar(1) not null,
+	register_date datetime not null,
+	modify_date datetime not null,
+	primary key (no)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
