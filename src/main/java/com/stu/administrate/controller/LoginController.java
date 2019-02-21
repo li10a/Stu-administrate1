@@ -12,24 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.stu.administrate.service.SampleService;
 
 @Controller
-public class SampleController {
+public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private SampleService sampleService;
 
-	@GetMapping("page")
-	public String hello(@RequestParam String name, Model model) {
-		logger.info(name);
-		model.addAttribute("name", name);
-		return "sample";
-	}
-
-	@GetMapping("pageWithData")
-	public String pageWithData(Model model) {
-		int count = sampleService.getTotalArticleCount();
-		logger.info(String.valueOf(count));
-		model.addAttribute("name", String.valueOf(count));
-		return "sample";
+	@GetMapping("/login")
+	public String hello(Model model) {
+		return "/login/login";
 	}
 }

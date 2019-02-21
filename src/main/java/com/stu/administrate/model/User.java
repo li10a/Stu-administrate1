@@ -1,0 +1,9 @@
+package com.stu.administrate.model;
+
+import lombok.Data;
+
+@Data
+public class User {
+
+	private int no;
+}
