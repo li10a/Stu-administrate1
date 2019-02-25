@@ -13,12 +13,18 @@
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<context:component-scan base-package="com.stu.administrate" use-default-filters="false" >
+	<context:component-scan base-package="com.stu.administrate">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
+	<mvc:annotation-driven />
+	<mvc:resources location="/js/" mapping="/js/**"/>
+ 	<mvc:resources location="/css/" mapping="/css/**"/>
+ 	<mvc:resources location="/images/" mapping="/images/**"/>
+
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="prefix" value="/WEB-INF/jsp"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+
 </beans>

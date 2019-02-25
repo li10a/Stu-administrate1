@@ -14,5 +14,6 @@
 		<typeAlias type="java.lang.String" alias="String"/>
 		<typeAlias type="java.lang.Integer" alias="int"/>
 		<typeAlias type="java.util.Map" alias="map"/>
+		<package name="com.stu.administrate.model"/>
 	</typeAliases>
 </configuration>

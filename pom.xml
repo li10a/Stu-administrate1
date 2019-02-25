@@ -33,7 +33,7 @@
 		<!-- Spring -->
 		<spring-framework.version>5.1.2.RELEASE</spring-framework.version>
 		<!-- MYSql -->
-		<mysql-connector.version>5.1.41</mysql-connector.version>
+		<mysql-connector.version>8.0.15</mysql-connector.version>
 		<!-- DBCP2 -->
 		<commons-dbcp2.version>2.1.1</commons-dbcp2.version>
 		<!-- Mybatis -->

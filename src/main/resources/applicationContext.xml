@@ -14,9 +14,17 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- Scans the classpath of this application for @Components to deploy as beans -->
+	<context:annotation-config />
 	<context:component-scan base-package="com.stu.administrate" >
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertiesFactoryBean">      
+    	<property name="location">
+        	<value>classpath:/properties/message.properties</value>        
+    	</property>
+    	<property name="fileEncoding" value="UTF-8" />
+ 	</bean>
 
 	<import resource="applicationContext-datasource.xml"/>
 
