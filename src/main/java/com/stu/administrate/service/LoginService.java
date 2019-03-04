@@ -6,14 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.stu.administrate.exception.LoginException;
 import com.stu.administrate.model.User;
-import com.stu.administrate.repository.UserRepository;
-import com.stu.administrate.type.UserType;
+import com.stu.administrate.repository.AdminRepository;
 
 @Service
 public class LoginService {
@@ -21,34 +18,29 @@ public class LoginService {
 	private Logger logger = LoggerFactory.getLogger(LoginService.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	private AdminRepository adminRepository;
 
-	@Autowired
-	@Qualifier("propertyConfigurer")
-	private PropertiesFactoryBean propertyConfigurer;
-
-	public boolean doLogin(ModelAndView modelAndView, HttpServletRequest request, String id, String password, String type) {
+	public User doLogin(HttpServletRequest request, String id, String password) throws LoginException {
 		try {
-			User user = null;
-			if (UserType.ADMIN.getType().equals(type) || UserType.TEACHER.getType().equals(type)) {
-				user = userRepository.selectAdminUser(id, type);
-			} else {
-				user = userRepository.selectStudent(id);
+			User user = adminRepository.selectAdminUserById(id);
+			
+			if (user == null) {
+				user = adminRepository.selectStudentById(id);
 			}
 
 			if (user == null) {
-				modelAndView.addObject("errorMsg", propertyConfigurer.getObject().getProperty("error.login.user.notexsit"));
-				return false;
+				throw new LoginException("error.login.user.notexsit");
 			}
 
 			if (!user.getPassword().equals(password)) {
-				modelAndView.addObject("errorMsg", propertyConfigurer.getObject().getProperty("error.login.user.password.wrong"));
-				return false;
+				throw new LoginException("error.login.user.password.wrong");
 			}
-		} catch (Exception e) {
+			
+			return user;
+		} catch (LoginException e) {
 			logger.debug(e.getMessage());
+			throw e;
 		}
 
-		return true;
 	}
 }

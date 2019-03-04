@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stu.administrate.repository.AdminRepository">
+
+	<select id="selectAdminUserById" resultType="user">
+		SELECT
+			ID, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
+		FROM 
+			USER_ADMIN
+		WHERE
+			ID = #{id}
+	</select>
+
+	<select id="selectStudentById" resultType="user">
+		SELECT
+			ID, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
+		FROM 
+			USER_STUDENT
+		WHERE
+			ID = #{id}
+	</select>
+
+	<insert id="insertTeacherUser">
+		INSERT INTO USER_ADMIN (ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE)
+		VALUEs (#{id}, #{name}, #{password}, 'T', -1, now())
+	</insert>
+
+	<select id="selectAllTeacher" resultType="user">
+		SELECT
+			ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
+		FROM 
+			USER_ADMIN
+		WHERE
+			TYPE = "T"
+	</select>
+
+	<insert id="insertClass">
+		INSERT INTO CLASS (NAME, TEACHER_ID, SLOGAN, REGISTER_DATE, MODIFY_DATE)
+		VALUEs (#{name}, #{teacherId}, #{slogan}, now(), now())
+	</insert>
+
+	<select id="selectAllClass" resultType="class1">
+		SELECT
+			NO, NAME, TEACHER_ID, SLOGAN, REGISTER_DATE, MODIFY_DATE
+		FROM
+			CLASS
+	</select>
+
+	<select id="selectTeacherNameById" resultType="string">
+		SELECT
+			NAME
+		FROM
+			USER_ADMIN
+		WHERE
+			ID = #{id}
+	</select>
+
+	<delete id="deleteClassByNo">
+		DELETE FROM CLASS
+		WHERE no = #{no}
+	</delete>
+</mapper>
