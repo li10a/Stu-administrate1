@@ -32,8 +32,8 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="#">班级管理</a></li>
-            <li class="active"><a href="#">教师用户管理 <span class="sr-only">(current)</span></a></li>
+            <li><a href="/admin/classList">班级管理</a></li>
+            <li class="active"><a href="/admin/teacherList">教师用户管理 <span class="sr-only">(current)</span></a></li>
             <li><a href="#">学生用户管理</a></li>
           </ul>
         </div>
@@ -41,7 +41,6 @@
           <h2 class="sub-header">添加教师用户</h2>
           <div class="table-responsive">
           <form name="addTearcherForm" class="form-horizontal" action="/admin/addTeacher" method="post" target="submitfrm">
-          <input type="hidden" value="T" />
           <table class="table table-bordered">
 		    <tbody>
 		      <tr>

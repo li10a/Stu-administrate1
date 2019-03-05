@@ -27,7 +27,7 @@
 
 	<select id="selectAllTeacher" resultType="user">
 		SELECT
-			ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
+			NO, ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
 		FROM 
 			USER_ADMIN
 		WHERE
@@ -36,8 +36,17 @@
 
 	<insert id="insertClass">
 		INSERT INTO CLASS (NAME, TEACHER_ID, SLOGAN, REGISTER_DATE, MODIFY_DATE)
-		VALUEs (#{name}, #{teacherId}, #{slogan}, now(), now())
+		VALUES (#{name}, #{teacherId}, #{slogan}, now(), now())
 	</insert>
+
+	<update id="modifyClass">
+		UPDATE CLASS
+		SET NAME = #{name},
+			TEACHER_ID = #{teacherId},
+			SLOGAN = #{slogan},
+			MODIFY_DATE = now()
+		WHERE NO = #{no}
+	</update>
 
 	<select id="selectAllClass" resultType="class1">
 		SELECT
@@ -46,7 +55,7 @@
 			CLASS
 	</select>
 
-	<select id="selectTeacherNameById" resultType="string">
+	<select id="selectTeacherNameById" resultType="String">
 		SELECT
 			NAME
 		FROM
@@ -57,6 +66,46 @@
 
 	<delete id="deleteClassByNo">
 		DELETE FROM CLASS
-		WHERE no = #{no}
+		WHERE NO = #{no}
 	</delete>
+
+	<select id="selectClassByNo" resultType="class1">
+		SELECT
+			NO, NAME, TEACHER_ID, SLOGAN
+		FROM 
+			CLASS
+		WHERE 
+			NO = #{no}
+	</select>
+
+	<select id="selectClassByTeacherId" resultType="class1">
+		SELECT
+			NO, NAME, TEACHER_ID, SLOGAN
+		FROM 
+			CLASS
+		WHERE 
+			TEACHER_ID LIKE '%${teacherId}%'
+	</select>
+
+	<delete id="deleteTeacherByNo">
+		DELETE FROM USER_ADMIN
+		WHERE NO = #{no}
+	</delete>
+
+	<update id="modifyTeacher">
+		UPDATE USER_ADMIN
+		SET NAME = #{name},
+			ID = #{id},
+			PASSWORD = #{password}
+		WHERE NO = #{no}
+	</update>
+
+	<select id="selectTeacherByNo" resultType="user">
+	SELECT
+		NO, ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
+	FROM 
+		USER_ADMIN
+	WHERE
+		NO = #{no}
+	</select>
 </mapper>

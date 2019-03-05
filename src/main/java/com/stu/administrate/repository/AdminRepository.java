@@ -23,7 +23,19 @@ public interface AdminRepository {
 
 	List<Class> selectAllClass();
 
+	List<Class> selectClassByTeacherId(@Param("teacherId") String teacherId);
+
 	String selectTeacherNameById(@Param("id") String id);
 
+	void deleteTeacherByNo(@Param("no") int no);
+
 	void deleteClassByNo(@Param("no") int no);
+
+	Class selectClassByNo(@Param("no") int no);
+
+	void modifyClass(@Param("no") int no, @Param("name") String name, @Param("teacherId") String teacherId, @Param("slogan") String slogan);
+	
+	void modifyTeacher(@Param("no") int no, @Param("id") String id, @Param("name") String name, @Param("password") String password);
+
+	User selectTeacherByNo(@Param("no") int no);
 }

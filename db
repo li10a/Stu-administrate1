@@ -1,6 +1,17 @@
 select * from user_admin;
 select * from class;
 
+/* test */
+
+select * from class
+where teacher_id like '%xin_lin%'
+
+INSERT INTO stu_administrate.user_admin
+(id, name, password, `type`, class_no, register_date)
+VALUES('dfh', 'dfg', 'teacher123', 'T', -1, '2019-03-03 20:03:24.000');
+
+
+
 /*init date*/
 
 insert into user_admin (id, name, password, type, class_no, register_date)
@@ -44,9 +55,12 @@ create table user_student (
 create table class (
 	no int not null auto_increment,
 	name varchar(10) not null,
-	teacher_id varchar(20) not null,
+	teacher_id varchar(100) not null,
 	slogan varchar(200) not null,
 	register_date datetime not null,
 	modify_date datetime not null,
 	primary key (no)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table user_admin modify column name varchar(20);
+alter table class modify column teacher_id varchar(100);

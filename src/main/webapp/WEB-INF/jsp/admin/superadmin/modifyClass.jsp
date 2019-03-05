@@ -11,14 +11,14 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>学生管理系统 - 添加班级</title>
+    <title>学生管理系统 - 编辑班级</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script>
-    function addClass() {
-		document.addClassForm.submit();
+    function modifyClass() {
+		document.modifyClassForm.submit();
     }
     </script>
   </head>
@@ -38,35 +38,36 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">添加班级</h2>
+          <h2 class="sub-header">编辑班级</h2>
           <div class="table-responsive">
-          <form name="addClassForm" class="form-horizontal" action="/admin/addClass" method="post" target="submitfrm">
+          <form name="modifyClassForm" class="form-horizontal" action="/admin/modifyClass" method="post" target="submitfrm">
+          <input name="no" type="hidden" value="${classInfo.no}" />
           <table class="table table-bordered">
 		    <tbody>
 		      <tr>
 		        <td><label class="control-label" for="input01">班级名称: </label></td>
-		        <td><input name="name" type="text" class="input-xlarge"></td>
+		        <td><input name="name" type="text" class="input-xlarge" value="${classInfo.name}"></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">管理员选择: </label></td>
 		        <td>
 		        <select name="teacherIdList" class="input-xlarge" multiple="multiple" size="6">
 		          <c:forEach items="${teacherList}" var="teacher">
-		          <option value="${teacher.id}">${teacher.name}</option>
+		          <option value="${teacher.id}" <c:if test="${not empty classTeacherIdMap[teacher.id] and classTeacherIdMap[teacher.id]}">selected</c:if>>${teacher.name}</option>
 		          </c:forEach>
 			    </select>
 			    </td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">班级宣传语</label></td>
-		        <td><textarea name="slogan" rows="10" cols="80"> </textarea></td>
+		        <td><textarea name="slogan" rows="10" cols="80">${classInfo.slogan}</textarea></td>
 		      </tr>
 		    </tbody>
 		  </table>
 		  </form>
 		  </div>
 		  <div class="text-left">
-            <button type="button" class="btn btn-primary" onclick="addClass()">添加</button>
+            <button type="button" class="btn btn-primary" onclick="modifyClass()">更新</button>
           </div>
         </div>
       </div>

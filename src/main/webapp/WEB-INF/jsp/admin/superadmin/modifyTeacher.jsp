@@ -11,14 +11,14 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>学生管理系统 - 添加班级</title>
+    <title>学生管理系统 - 编辑教师用户</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script>
-    function addClass() {
-		document.addClassForm.submit();
+    function modifyTeacher() {
+		document.addTearcherForm.submit();
     }
     </script>
   </head>
@@ -32,41 +32,36 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/admin/classList">班级管理 <span class="sr-only">(current)</span></a></li>
-            <li><a href="/admin/teacherList">教师用户管理</a></li>
+            <li><a href="/admin/classList">班级管理</a></li>
+            <li class="active"><a href="/admin/teacherList">教师用户管理 <span class="sr-only">(current)</span></a></li>
             <li><a href="#">学生用户管理</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">添加班级</h2>
+          <h2 class="sub-header">编辑教师用户</h2>
           <div class="table-responsive">
-          <form name="addClassForm" class="form-horizontal" action="/admin/addClass" method="post" target="submitfrm">
+          <form name="addTearcherForm" class="form-horizontal" action="/admin/modifyTeacher" method="post" target="submitfrm">
+          <input type="hidden" name="no" value="${teacherInfo.no }" />
           <table class="table table-bordered">
 		    <tbody>
 		      <tr>
-		        <td><label class="control-label" for="input01">班级名称: </label></td>
-		        <td><input name="name" type="text" class="input-xlarge"></td>
+		        <td><label class="control-label">用户名: </label></td>
+		        <td><input type="text" name="name" class="input-xlarge" value="${teacherInfo.name }"></td>
 		      </tr>
 		      <tr>
-		        <td><label class="control-label">管理员选择: </label></td>
-		        <td>
-		        <select name="teacherIdList" class="input-xlarge" multiple="multiple" size="6">
-		          <c:forEach items="${teacherList}" var="teacher">
-		          <option value="${teacher.id}">${teacher.name}</option>
-		          </c:forEach>
-			    </select>
-			    </td>
+		        <td><label class="control-label">账号: </label></td>
+		        <td><input type="text" name="id" placeholder="" class="input-xlarge" value="${teacherInfo.id }"></td>
 		      </tr>
 		      <tr>
-		        <td><label class="control-label">班级宣传语</label></td>
-		        <td><textarea name="slogan" rows="10" cols="80"> </textarea></td>
+		        <td><label class="control-label">初始密码: </label></td>
+		        <td><input type="text" name="password" placeholder="" class="input-xlarge" value="${teacherInfo.password }"></td>
 		      </tr>
 		    </tbody>
 		  </table>
 		  </form>
 		  </div>
 		  <div class="text-left">
-            <button type="button" class="btn btn-primary" onclick="addClass()">添加</button>
+            <button type="button" class="btn btn-primary" onclick="modifyTeacher()">更新</button>
           </div>
         </div>
       </div>
