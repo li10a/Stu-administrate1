@@ -99,5 +99,4 @@ public class ClassController {
 		mav.setViewName(ForwardPageType.FORWARD_GOPAGE.getForwardPage());
 		return mav;
 	}
-
 }
