@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.stu.administrate.exception.LoginException;
 import com.stu.administrate.model.User;
-import com.stu.administrate.repository.AdminRepository;
+import com.stu.administrate.repository.UserRepository;
 
 @Service
 public class LoginService {
@@ -18,14 +18,14 @@ public class LoginService {
 	private Logger logger = LoggerFactory.getLogger(LoginService.class);
 
 	@Autowired
-	private AdminRepository adminRepository;
+	private UserRepository userRepository;
 
 	public User doLogin(HttpServletRequest request, String id, String password) throws LoginException {
 		try {
-			User user = adminRepository.selectAdminUserById(id);
+			User user = userRepository.selectAdminUserById(id);
 			
 			if (user == null) {
-				user = adminRepository.selectStudentById(id);
+				user = userRepository.selectStudentById(id);
 			}
 
 			if (user == null) {
