@@ -1,6 +1,7 @@
 package com.stu.administrate.service;
 
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stu.administrate.constants.ServerFolderConstant;
 import com.stu.administrate.model.Class;
 import com.stu.administrate.model.User;
 import com.stu.administrate.repository.ClassRepository;
@@ -78,4 +80,10 @@ public class ClassService {
 		return classList;
 	}
 
+	public void makeDir(String className) {
+		File file = new File(ServerFolderConstant.FOLDER_PATH + "\\" + className);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+	}
 }

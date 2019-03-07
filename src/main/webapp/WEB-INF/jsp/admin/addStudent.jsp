@@ -16,7 +16,22 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
+    $(function(){
+		$('#choose-file').change(function(){
+			var file = $('#choose-file').get(0).files[0];
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload=function(e){
+				$('#show-img').attr('src', e.target.result);
+			}
+		});
+		$("#choose-file").hide();
+		$("#box-1").bind('click', function(){
+			$("#choose-file").click();
+		});
+    });
     function addStudent() {
 		document.addTearcherForm.submit();
     }
@@ -40,35 +55,35 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="sub-header">添加学生用户</h2>
           <div class="table-responsive">
-          <form name="addStudentForm" class="form-horizontal" action="/admin/addTeacher" method="post" target="submitfrm">
-          <div style="width:700px;">
+          <form name="addStudentForm" class="form-horizontal" action="/admin/addStudent" method="post" target="submitfrm" enctype="multipart/form-data">
+          <div style="width:900px;">
           <table class="table table-bordered" >
             <tbody>
 		      <tr>
 		        <td><label class="control-label">用户名: </label></td>
-		        <td style="width:20%"><input type="text" name="name" class="input-xlarge"></td>
+		        <td style="width:20%"><input type="text" name="user.name" class="input-xlarge"></td>
 		        <td><label class="control-label">班级: </label></td>
 		        <td>
-					<select name="classNo">
+					<select name="user.classNo">
 						<c:forEach items="${classList}" var="class1">
 		        		<option value="${class1.no}">${class1.name}</option>
 		        		</c:forEach>
 		        	</select>
 				</td>
-				<td rowspan="3" style="width:20%"><label class="control-label"><img src="" width="100px" height="100px"><input id="file" type="file" name="file" style="left: -9999px; position: absolute;"></label></td>
+				<td rowspan="3" style="width:20%" align="center"><div id="box-1"><img id="show-img" src="/images/noname.jpg" width="120px" height="120px"></div><input id="choose-file" type="file" name="file" ></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">账号: </label></td>
-		        <td><input type="text" name="id" placeholder="" class="input-xlarge"></td>
+		        <td><input type="text" name="user.id" placeholder="" class="input-xlarge"></td>
 		        <td><label class="control-label">初始密码: </label></td>
-		        <td><input type="text" name="password" placeholder="" class="input-xlarge"></td>
+		        <td><input type="text" name="user.password" placeholder="" class="input-xlarge"></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">用户名: </label></td>
-		        <td><input type="text" name="name" class="input-xlarge"></td>
+		        <td><input type="text" name="user.name" class="input-xlarge"></td>
 		        <td><label class="control-label">性别: </label></td>
 		        <td style="width:10%;padding-top:10px">
-		        	<select name="sex">
+		        	<select name="user.sex">
 		        		<option value="男">男</option>
 		        		<option value="女">女</option>
 		        	</select>
@@ -76,28 +91,28 @@
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">年龄: </label></td>
-		        <td><input type="text" name="age" class="input-xlarge"></td>
+		        <td><input type="text" name="user.age" class="input-xlarge"></td>
 		        <td><label class="control-label">身份证号: </label></td>
-		        <td><input type="text" name="idcardNo" class="input-xlarge"></td>
+		        <td><input type="text" name="user.idcardNo" class="input-xlarge"></td>
 		        <td rowspan="3" style="border-bottom-style:none"><label class="control-label"> </label></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">学号: </label></td>
-		        <td><input type="text" name="membershipNo" class="input-xlarge"></td>
+		        <td><input type="text" name="user.membershipNo" class="input-xlarge"></td>
 		        <td><label class="control-label">邮箱: </label></td>
-		        <td><input type="text" name="email" class="input-xlarge"></td>
+		        <td><input type="text" name="user.email" class="input-xlarge"></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">电话号码: </label></td>
-		        <td><input type="text" name="phoneNo" placeholder="" class="input-xlarge"></td>
+		        <td><input type="text" name="user.phoneNo" placeholder="" class="input-xlarge"></td>
 				<td><label class="control-label">携带电话: </label></td>
-		        <td><input type="text" name="telephoneNo" class="input-xlarge"></td>
+		        <td><input type="text" name="user.telephoneNo" class="input-xlarge"></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">QQ号码: </label></td>
-		        <td><input type="text" name="qqNo" class="input-xlarge"></td>
+		        <td><input type="text" name="user.qqNo" class="input-xlarge"></td>
 		        <td><label class="control-label">地址: </label></td>
-		        <td><input type="text" name="address" placeholder="" class="input-xlarge"></td>
+		        <td><input type="text" name="user.address" placeholder="" class="input-xlarge"></td>
 		        <td style="border-top-style:none"> </td>
 		      </tr>
 		    </tbody>
@@ -112,7 +127,6 @@
       </div>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <iframe name="submitfrm" style="display:none"></iframe>
   </body>

@@ -25,4 +25,6 @@ public interface UserRepository {
 	void modifyTeacher(@Param("no") int no, @Param("id") String id, @Param("name") String name, @Param("password") String password);
 
 	User selectTeacherByNo(@Param("no") int no);
+
+	void insertStudent(User user);
 }

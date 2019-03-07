@@ -73,4 +73,10 @@
 	WHERE
 		NO = #{no}
 	</select>
+
+	<insert id="insertStudent" parameterType="user">
+	INSERT INTO USER_STUDENT (ID, PASSWORD, NAME, AGE, SEX, IDCARD_NO, MEMBERSHIP_NO, CLASS_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, ADDRESS, IMAGE, TYPE, REGISTER_DATE, MODIFY_DATE)
+	VALUES (#{no}, #{password}, #{name}, #{age}, #{age}, #{sex}, #{idcardNo}, #{membershipNo}, #{classNo}, #{phoneNo}, telephoneNo, qqNo, email, address, image, type, now(), now())
+	</insert>
+
 </mapper>
