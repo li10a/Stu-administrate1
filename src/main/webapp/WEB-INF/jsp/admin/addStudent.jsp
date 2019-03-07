@@ -50,11 +50,12 @@
 		        <td><label class="control-label">班级: </label></td>
 		        <td>
 					<select name="classNo">
-		        		<option value="11">计算机A班</option>
-		        		<option value="222">计算机B班</option>
+						<c:forEach items="${classList}" var="class1">
+		        		<option value="${class1.no}">${class1.name}</option>
+		        		</c:forEach>
 		        	</select>
 				</td>
-				<td rowspan="3" style="width:20%"><label class="control-label"> </label></td>
+				<td rowspan="3" style="width:20%"><label class="control-label"><img src="" width="100px" height="100px"><input id="file" type="file" name="file" style="left: -9999px; position: absolute;"></label></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label">账号: </label></td>
