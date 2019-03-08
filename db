@@ -11,6 +11,7 @@ INSERT INTO stu_administrate.user_admin
 (id, name, password, `type`, class_no, register_date)
 VALUES('dfh', 'dfg', 'teacher123', 'T', -1, '2019-03-03 20:03:24.000');
 
+select min(no) from class;
 
 
 /*init date*/
@@ -38,15 +39,15 @@ create table user_student (
 	name varchar(10) not null,
 	age int,
 	sex char(1),
-	idcard_no int not null,
-	membership_no int not null,
+	idcard_no varchar(30) not null,
+	membership_no varchar(30) not null,
 	class_no int not null,
-	phone_no int not null,
-	telephone_no int,
-	qq_no int,
-	email varchar(20) not null,
+	phone_no varchar(30) not null,
+	telephone_no varchar(30),
+	qq_no varchar(30),
+	email varchar(30) not null,
 	address varchar(100) not null,
-	image blob,
+	image varchar(100),
 	type varchar(1) not null,
 	register_date datetime not null,
 	modify_date datetime not null,
@@ -63,5 +64,7 @@ create table class (
 	primary key (no)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+alter table user_student modify column image varchar(100);
+alter table user_student modify column idcard_no varchar(30);
 alter table user_admin modify column name varchar(20);
 alter table class modify column teacher_id varchar(100);

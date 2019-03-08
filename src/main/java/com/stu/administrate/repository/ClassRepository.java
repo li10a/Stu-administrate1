@@ -21,4 +21,6 @@ public interface ClassRepository {
 	Class selectClassByNo(@Param("no") int no);
 
 	void modifyClass(@Param("no") int no, @Param("name") String name, @Param("teacherId") String teacherId, @Param("slogan") String slogan);
+
+	int selectMinClassNo();
 }

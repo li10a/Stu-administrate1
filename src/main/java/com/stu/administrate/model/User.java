@@ -22,15 +22,15 @@ public class User {
 
 	private String sex;
 
-	private int idcardNo;
+	private String idcardNo;
 
-	private int membershipNo;
+	private String membershipNo;
 
-	private int phoneNo;
+	private String phoneNo;
 
-	private int telephoneNo;
+	private String telephoneNo;
 
-	private int qqNo;
+	private String qqNo;
 
 	private String email;
 
@@ -39,6 +39,8 @@ public class User {
 	private String type;
 
 	private int classNo;
+
+	private String image;
 
 	private Date registerDate;
 

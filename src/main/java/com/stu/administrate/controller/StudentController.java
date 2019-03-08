@@ -1,5 +1,8 @@
 package com.stu.administrate.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.Part;
 
 import org.slf4j.Logger;
@@ -10,13 +13,17 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.stu.administrate.model.User;
 import com.stu.administrate.service.StudentService;
+import com.stu.administrate.type.ForwardPageType;
+import com.stu.administrate.util.PageInfo;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,6 +38,20 @@ public class StudentController {
 	@Qualifier("propertyConfigurer")
 	private PropertiesFactoryBean propertyConfigurer;
 
+	@GetMapping("/studentList")
+	public String studentList(Model model, @RequestParam(name = "classNo", required = false) Integer classNo,
+			@RequestParam(name = "page", defaultValue = "1") int currentPage) {
+		if (classNo == null) {
+			classNo = studentService.getMinClassNo();
+		}
+		model.addAttribute("classList", studentService.getAllClass());
+		List<User> studentList = studentService.selectAllStudentByClassNo(classNo);
+		PageInfo pageInfo = new PageInfo(currentPage, studentList.size());
+		model.addAttribute("studentList", studentList.subList(pageInfo.getStartRow() - 1, pageInfo.getEndRow()));
+		model.addAttribute("pageInfo", pageInfo);
+		return "/admin/studentList";
+	}
+
 	@GetMapping("/addStudentForm")
 	public String addStudentForm(Model model) {
 		model.addAttribute("classList", studentService.getAllClass());
@@ -38,9 +59,14 @@ public class StudentController {
 	}
 
 	@PostMapping("/addStudent")
-	@ResponseBody
-	public String addStudent(Model model, @RequestParam("user") User user, Part file) {
+	public String addStudent(Model model, RedirectAttributes attr, User user, @RequestParam("file") MultipartFile file) {
 		studentService.addStudent(user, file);
-		return "/admin/studentList";
+		model.addAttribute("url", "/admin/studentList?classno=" + user.getClassNo());
+		try {
+			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.add"));
+		} catch (IOException e) {
+			logger.error("message key error!");
+		}
+		return ForwardPageType.FORWARD_GOPAGE.getForwardPage();
 	}
 }

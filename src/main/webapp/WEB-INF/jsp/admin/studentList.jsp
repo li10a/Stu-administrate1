@@ -12,22 +12,22 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>学生管理系统 - 班级情报</title>
+    <title>学生管理系统 - 学生情报</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script>
-	function goAddClassForm() {
-		location.href="/admin/addClassForm";
+	function goAddStudentForm() {
+		location.href="/admin/addStudentForm";
 	}
-	function deleteClass(classNo) {
+	function deleteStudent(studentId) {
 		if (confirm("确认删除吗?")) {
-			location.href="/admin/deleteClass?no=" + classNo;
+			location.href="/admin/deleteStudent?id=" + id;
 		}
 	}
-	function goModifyClassForm(classNo) {
-		location.href="/admin/modifyClassForm?no=" + classNo;
+	function goModifyStudentForm(studentId) {
+		location.href="/admin/modifyStudentForm?no=" + id;
 	}
     </script>
   </head>
@@ -41,43 +41,52 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/admin/classList">班级管理 <span class="sr-only">(current)</span></a></li>
+            <li><a href="/admin/classList">班级管理</a></li>
             <li><a href="/admin/teacherList">教师用户管理</a></li>
-            <li><a href="/admin/studentList">学生用户管理</a></li>
+            <li class="active"><a href="/admin/studentList">学生用户管理 <span class="sr-only">(current)</span></a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">班级列表<div class="pull-right"><button type="button" class="btn btn-primary" onclick="goAddClassForm()">班级添加</button></div></h2>
+          <h2 class="sub-header">学生列表
+          <div class="pull-right">
+          	<button type="button" class="btn btn-primary" onclick="goAddStudentForm()">学生添加</button>
+          </div>
+          </h2>
+          <select name="classList">
+     		<c:forEach items="${classList}" var="class1">
+     			<option value="${class1.no}">${class1.name}</option>
+     		</c:forEach>
+          </select>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>班级名字</th>
-                  <th>班级管理员</th>
-                  <th>班级人数</th>
-                  <th>班级宣传语</th>
+                  <th>ID</th>
+                  <th>学生名字</th>
+                  <th>学籍号</th>
+                  <th>携带电话</th>
+                  <th>地址</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${classList}" var="class1">
+              	<c:forEach items="${studentList}" var="student">
               	  <tr>
-              	    <td>${class1.no }</td>
-              	    <td>${class1.name }</td>
-                    <td>${class1.teacherId }</td>
-                    <td>${class1.studentCnt }</td>
+              	    <td>${student.id}</td>
+              	    <td>${student.name }</td>
+                    <td>${student.membershipNo }</td>
+                    <td>${student.telephoneNo }</td>
                     <c:choose>
-					<c:when test="${fn:length(class1.slogan) >= 15}">
-						<td>${fn:substring(class1.slogan, 0, 15)}..</td>
+					<c:when test="${fn:length(student.address) >= 15}">
+						<td>${fn:substring(student.address, 0, 15)}..</td>
 					</c:when>
 					<c:otherwise>
-						<td>${class1.slogan}</td>
+						<td>${student.address}</td>
 					</c:otherwise>
               	    </c:choose>
                     <td>
-                    	<button type="button" class="btn btn-default" onclick="goModifyClassForm(${class1.no})">编辑</button>
-                    	<button type="button" class="btn btn-default" onclick="deleteClass(${class1.no})">删除</button>
+                    	<button type="button" class="btn btn-default" onclick="goModifyClassForm(${student.no})">编辑</button>
+                    	<button type="button" class="btn btn-default" onclick="deleteClass(${student.no})">删除</button>
                     </td>
                   </tr>
               	</c:forEach>
@@ -86,7 +95,7 @@
           </div>
 
           <c:import url="/WEB-INF/jsp/common/pagination.jsp" charEncoding="UTF-8">
-          	<c:param name="url">classList</c:param>
+          	<c:param name="url">studentList</c:param>
           </c:import>
 
         </div>

@@ -85,5 +85,13 @@ public class ClassService {
 		if (!file.exists()) {
 			file.mkdir();
 		}
+		File file1 = new File(ServerFolderConstant.FOLDER_PATH + "\\" + className + "\\image");
+		if (!file1.exists()) {
+			file1.mkdir();
+		}
+		File file2 = new File(ServerFolderConstant.FOLDER_PATH + "\\" + className + "\\homework");
+		if (!file2.exists()) {
+			file2.mkdir();
+		}
 	}
 }

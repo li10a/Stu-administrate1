@@ -27,4 +27,6 @@ public interface UserRepository {
 	User selectTeacherByNo(@Param("no") int no);
 
 	void insertStudent(User user);
+
+	List<User> selectAllStudentByClassNo(@Param("classNo") int classNo);
 }

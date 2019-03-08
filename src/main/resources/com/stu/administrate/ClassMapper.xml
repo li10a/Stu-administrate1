@@ -46,11 +46,6 @@
 		WHERE NO = #{no}
 	</delete>
 
-	<delete id="deleteTeacherByNo">
-		DELETE FROM USER_ADMIN
-		WHERE NO = #{no}
-	</delete>
-
 	<update id="modifyTeacher">
 		UPDATE USER_ADMIN
 		SET NAME = #{name},
@@ -59,12 +54,10 @@
 		WHERE NO = #{no}
 	</update>
 
-	<select id="selectTeacherByNo" resultType="user">
+	<select id="selectMinClassNo" resultType="int">
 	SELECT
-		NO, ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
-	FROM 
-		USER_ADMIN
-	WHERE
-		NO = #{no}
+		MIN(NO)
+	FROM
+		CLASS 
 	</select>
 </mapper>

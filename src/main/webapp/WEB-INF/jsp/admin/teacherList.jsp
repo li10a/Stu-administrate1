@@ -43,7 +43,7 @@
           <ul class="nav nav-sidebar">
             <li><a href="/admin/classList">班级管理</a></li>
             <li class="active"><a href="/admin/teacherList">教师用户管理<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">学生用户管理</a></li>
+            <li><a href="/admin/studentList">学生用户管理</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
