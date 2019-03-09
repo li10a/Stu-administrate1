@@ -13,6 +13,13 @@ VALUES('dfh', 'dfg', 'teacher123', 'T', -1, '2019-03-03 20:03:24.000');
 
 select min(no) from class;
 
+SELECT
+			NO, ID, NAME, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, IMAGE, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
+		FROM 
+			USER_STUDENT
+		WHERE
+			ID = 'xiaoxiao11'
+
 
 /*init date*/
 
