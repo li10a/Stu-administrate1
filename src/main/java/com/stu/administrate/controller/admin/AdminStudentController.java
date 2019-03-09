@@ -1,4 +1,4 @@
-package com.stu.administrate.controller;
+package com.stu.administrate.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,9 +29,9 @@ import com.stu.administrate.util.PageInfo;
 
 @Controller
 @RequestMapping("/admin")
-public class StudentController {
+public class AdminStudentController {
 
-	private Logger logger = LoggerFactory.getLogger(StudentController.class);
+	private Logger logger = LoggerFactory.getLogger(AdminStudentController.class);
 
 	@Autowired
 	StudentService studentService;
@@ -51,6 +51,7 @@ public class StudentController {
 		PageInfo pageInfo = new PageInfo(currentPage, studentList.size());
 		model.addAttribute("studentList", studentList.subList(pageInfo.getStartRow() - 1, pageInfo.getEndRow()));
 		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("classNo", classNo);
 		return "/admin/studentList";
 	}
 

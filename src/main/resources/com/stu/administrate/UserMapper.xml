@@ -4,7 +4,7 @@
 
 	<select id="selectAdminUserById" resultType="user">
 		SELECT
-			ID, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
+			NO, ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE
 		FROM 
 			USER_ADMIN
 		WHERE
@@ -13,7 +13,7 @@
 
 	<select id="selectStudentById" resultType="user">
 		SELECT
-			NO, ID, NAME, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, IMAGE, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
+			NO, ID, NAME, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, TYPE, IMAGE, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
 		FROM 
 			USER_STUDENT
 		WHERE
@@ -68,7 +68,7 @@
 
 	<insert id="insertStudent" parameterType="user">
 	INSERT INTO USER_STUDENT (ID, PASSWORD, NAME, AGE, SEX, IDCARD_NO, MEMBERSHIP_NO, CLASS_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, ADDRESS, IMAGE, TYPE, REGISTER_DATE, MODIFY_DATE)
-	VALUES (#{id}, #{password}, #{name}, #{age}, #{sex}, #{idcardNo}, #{membershipNo}, #{classNo}, #{phoneNo}, #{telephoneNo}, #{qqNo}, #{email}, #{address}, #{image}, 'T', now(), now())
+	VALUES (#{id}, #{password}, #{name}, #{age}, #{sex}, #{idcardNo}, #{membershipNo}, #{classNo}, #{phoneNo}, #{telephoneNo}, #{qqNo}, #{email}, #{address}, #{image}, 'S', now(), now())
 	</insert>
 
 	<select id="selectAllStudentByClassNo" resultType="user">
@@ -105,4 +105,13 @@
 		MODIFY_DATE = now()
 	WHERE NO = #{no}
 	</update>
+
+	<select id="selectStudentCntByClassNo" resultType="int">
+	SELECT
+		COUNT(1)
+	FROM
+		USER_STUDENT
+	WHERE
+		CLASS_NO = #{classNo}
+	</select>
 </mapper>

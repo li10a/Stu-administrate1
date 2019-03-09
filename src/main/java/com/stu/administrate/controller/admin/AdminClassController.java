@@ -1,4 +1,4 @@
-package com.stu.administrate.controller;
+package com.stu.administrate.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,20 +12,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stu.administrate.model.Class;
+import com.stu.administrate.model.User;
 import com.stu.administrate.service.ClassService;
 import com.stu.administrate.type.ForwardPageType;
 import com.stu.administrate.util.PageInfo;
 
 @Controller
 @RequestMapping("/admin")
-public class ClassController {
+public class AdminClassController {
 
-	private Logger logger = LoggerFactory.getLogger(ClassController.class);
+	private Logger logger = LoggerFactory.getLogger(AdminClassController.class);
 
 	@Autowired
 	ClassService classService;
@@ -38,7 +40,9 @@ public class ClassController {
 	public String getClassList(Model model, @RequestParam(name="page", defaultValue="1") int currentPage) {
 		List<Class> classList = classService.selectAllClass();
 		PageInfo pageInfo = new PageInfo(currentPage, classList.size());
-		model.addAttribute("classList", classList.subList(pageInfo.getStartRow() - 1, pageInfo.getEndRow()));
+		List<Class> disClassList = classList.subList(pageInfo.getStartRow() - 1, pageInfo.getEndRow());
+		classService.setClassStudentCnt(disClassList);
+		model.addAttribute("classList", disClassList);
 		model.addAttribute("pageInfo", pageInfo);
 		return "/admin/classList";
 	}

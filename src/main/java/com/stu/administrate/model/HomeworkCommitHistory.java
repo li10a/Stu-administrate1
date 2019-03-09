@@ -7,18 +7,18 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("class1")
-public class Class {
+@Alias("homeworkCommitHistory")
+public class HomeworkCommitHistory {
 
 	private int no;
 
-	private String name;
+	private int homeworkNo;
 
-	private String teacherId;
-	
-	private String slogan;
+	private int studentNo;
 
-	private int studentCnt;
+	private String homeworkPath;
+
+	private int score;
 
 	private Date registerDate;
 

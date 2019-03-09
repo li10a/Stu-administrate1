@@ -17,6 +17,14 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    	$('#classList').change(function(){
+    		window.location.href = "/admin/studentList?classNo="+$(this).children('option:selected').val();
+    	})
+    });
+    </script>
     <script>
 	function goAddStudentForm() {
 		location.href="/admin/addStudentForm";
@@ -52,9 +60,9 @@
           	<button type="button" class="btn btn-primary" onclick="goAddStudentForm()">学生添加</button>
           </div>
           </h2>
-          <select name="classList">
+          <select name="classList" id="classList">
      		<c:forEach items="${classList}" var="class1">
-     			<option value="${class1.no}">${class1.name}</option>
+     			<option value="${class1.no}" <c:if test="${class1.no eq classNo}">selected</c:if>>${class1.name}</option>
      		</c:forEach>
           </select>
           <div class="table-responsive">
@@ -102,7 +110,6 @@
       </div>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

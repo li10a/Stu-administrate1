@@ -3,6 +3,7 @@ package com.stu.administrate.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,22 +35,30 @@ public class LoginController {
 	private PropertiesFactoryBean propertyConfigurer;
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		loginService.clearLoginCookie(request, response);
 		return "/login";
 	}
 
 	@PostMapping("/doLogin")
-	public ModelAndView doAdminLogin(HttpServletRequest request, @RequestParam(value = "id", required = true) String id,
+	public ModelAndView doAdminLogin(HttpServletResponse response, @RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "password", required = true) String password) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			User user = loginService.doLogin(request, id, password);
+			User user = loginService.doLogin(id, password);
 
 			if (UserType.ADMIN.getType().equals(user.getType())) {
 				mav.addObject("url", "/admin/classList");
 				mav.setViewName(ForwardPageType.FORWARD_GOPAGE.getForwardPage());
-				return mav;
+			} else if (UserType.TEACHER.getType().equals(user.getType())) {
+				mav.addObject("url", "/teacher/classList");
+				mav.setViewName(ForwardPageType.FORWARD_GOPAGE.getForwardPage());
+			} else if (UserType.STUDENT.getType().equals(user.getType())) {
+				mav.addObject("url", "/student/overview");
+				mav.setViewName(ForwardPageType.FORWARD_GOPAGE.getForwardPage());
 			}
+			// set cookie
+			loginService.setCookie(user, response);
 			return mav;
 		} catch (LoginException e) {
 			try {

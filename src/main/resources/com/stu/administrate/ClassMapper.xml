@@ -60,4 +60,11 @@
 	FROM
 		CLASS 
 	</select>
+
+	<update id="updateClassSloganByNo">
+	UPDATE CLASS
+	SET SLOGAN = #{slogan}
+	WHERE
+		NO = #{no}
+	</update>
 </mapper>

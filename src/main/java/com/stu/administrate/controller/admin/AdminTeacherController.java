@@ -1,4 +1,4 @@
-package com.stu.administrate.controller;
+package com.stu.administrate.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,9 +23,9 @@ import com.stu.administrate.util.PageInfo;
 
 @Controller
 @RequestMapping("/admin")
-public class TeacherController {
+public class AdminTeacherController {
 
-	private Logger logger = LoggerFactory.getLogger(TeacherController.class);
+	private Logger logger = LoggerFactory.getLogger(AdminTeacherController.class);
 
 	@Autowired
 	TeacherService teacherService;

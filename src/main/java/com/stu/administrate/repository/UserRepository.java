@@ -33,4 +33,6 @@ public interface UserRepository {
 	void deleteStudentById(@Param("id") String id);
 	
 	void updateStudent(User user);
+
+	int selectStudentCntByClassNo(@Param("classNo") int classNo);
 }

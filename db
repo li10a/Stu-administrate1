@@ -71,6 +71,28 @@ create table class (
 	primary key (no)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table homework (
+	no int not null auto_increment,
+	title varchar(50) not null,
+	task varchar(100) not null,
+	class_no int not null,
+	register_date datetime not null,
+	modify_date datetime not null,
+	primary key (no)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table homework_commit_history (
+	no int not null auto_increment,
+	homework_no int not null,
+	student_no int not null,
+	homework_path varchar(100) not null,
+	score int,
+	register_date datetime not null,
+	modify_date datetime not null,
+	primary key (no)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 alter table user_student modify column image varchar(100);
 alter table user_student modify column idcard_no varchar(30);
 alter table user_admin modify column name varchar(20);

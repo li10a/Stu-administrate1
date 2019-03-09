@@ -32,5 +32,20 @@
 		<property name="maxUploadSize" value="17367648787"></property>
 		<!-- 上传文件的编码 --> 
 		<property name="defaultEncoding" value="UTF-8"></property> 
-   </bean>
+    </bean>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<bean class="com.stu.administrate.interceptor.AdminLoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/teacher/**"/>
+			<bean class="com.stu.administrate.interceptor.TeacherLoginInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/student/**"/>
+			<bean class="com.stu.administrate.interceptor.StudentLoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

@@ -94,4 +94,14 @@ public class ClassService {
 			file2.mkdir();
 		}
 	}
+
+	public void setClassStudentCnt(List<Class> userList) {
+		for (Class class1 : userList) {
+			class1.setStudentCnt(userRepository.selectStudentCntByClassNo(class1.getNo()));
+		}
+	}
+
+	public void updateClassSloganByNo(int no, String slogan) {
+		classRepository.updateClassSloganByNo(no, slogan);
+	}
 }
