@@ -29,4 +29,8 @@ public interface UserRepository {
 	void insertStudent(User user);
 
 	List<User> selectAllStudentByClassNo(@Param("classNo") int classNo);
+
+	void deleteStudentById(@Param("id") String id);
+	
+	void updateStudent(User user);
 }

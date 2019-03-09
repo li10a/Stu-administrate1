@@ -15,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.stu.administrate.constants.ServerFolderConstant;
 import com.stu.administrate.model.User;
 import com.stu.administrate.service.StudentService;
 import com.stu.administrate.type.ForwardPageType;
@@ -59,11 +61,43 @@ public class StudentController {
 	}
 
 	@PostMapping("/addStudent")
-	public String addStudent(Model model, RedirectAttributes attr, User user, @RequestParam("file") MultipartFile file) {
+	public String addStudent(Model model, User user, @RequestParam("file") MultipartFile file) {
 		studentService.addStudent(user, file);
-		model.addAttribute("url", "/admin/studentList?classno=" + user.getClassNo());
+		model.addAttribute("url", "/admin/studentList?classNo=" + user.getClassNo());
 		try {
 			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.add"));
+		} catch (IOException e) {
+			logger.error("message key error!");
+		}
+		return ForwardPageType.FORWARD_GOPAGE.getForwardPage();
+	}
+
+	@GetMapping("/deleteStudent")
+	public String deleteStudent(Model model, @RequestParam("id") String id, @RequestParam("classNo") String classNo) {
+		studentService.deleteStudentById(id);
+		try {
+			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.delete"));
+		} catch (IOException e) {
+			// do nothing
+		}
+		model.addAttribute("url", "/admin/studentList?classNo=" + classNo);
+		return ForwardPageType.FORWARD_GOPAGE.getForwardPage();
+		
+	}
+
+	@GetMapping("/modifyStudentForm")
+	public String modifyStudentForm(Model model, @RequestParam("id") String id) {
+		model.addAttribute("studentInfo", studentService.selectStudentById(id));
+		model.addAttribute("classList", studentService.getAllClass());
+		return "/admin/modifyStudent";
+	}
+
+	@PostMapping("/modifyStudent")
+	public String modifyStudent(Model model, User user, @RequestParam("file") MultipartFile file) {
+		studentService.updateStudent(user, file);
+		model.addAttribute("url", "/admin/studentList?classNo=" + user.getClassNo());
+		try {
+			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.update"));
 		} catch (IOException e) {
 			logger.error("message key error!");
 		}

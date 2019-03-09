@@ -21,13 +21,13 @@
 	function goAddStudentForm() {
 		location.href="/admin/addStudentForm";
 	}
-	function deleteStudent(studentId) {
+	function deleteStudent(studentId, classNo) {
 		if (confirm("确认删除吗?")) {
-			location.href="/admin/deleteStudent?id=" + id;
+			location.href="/admin/deleteStudent?id=" + studentId + "&classNo=" + classNo;
 		}
 	}
 	function goModifyStudentForm(studentId) {
-		location.href="/admin/modifyStudentForm?no=" + id;
+		location.href="/admin/modifyStudentForm?id=" + studentId;
 	}
     </script>
   </head>
@@ -85,8 +85,8 @@
 					</c:otherwise>
               	    </c:choose>
                     <td>
-                    	<button type="button" class="btn btn-default" onclick="goModifyClassForm(${student.no})">编辑</button>
-                    	<button type="button" class="btn btn-default" onclick="deleteClass(${student.no})">删除</button>
+                    	<button type="button" class="btn btn-default" onclick="goModifyStudentForm('${student.id}')">编辑</button>
+                    	<button type="button" class="btn btn-default" onclick="deleteStudent('${student.id}', ${student.classNo })">删除</button>
                     </td>
                   </tr>
               	</c:forEach>

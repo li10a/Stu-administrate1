@@ -13,7 +13,7 @@
 
 	<select id="selectStudentById" resultType="user">
 		SELECT
-			ID, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
+			NO, ID, NAME, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, IMAGE, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
 		FROM 
 			USER_STUDENT
 		WHERE
@@ -80,4 +80,29 @@
 		CLASS_NO = #{classNo}
 	
 	</select>
+	
+	<delete id="deleteStudentById">
+	DELETE FROM USER_STUDENT
+	WHERE ID = #{id}
+	</delete>
+
+	<update id="updateStudent" parameterType="user">
+	UPDATE USER_STUDENT
+	SET ID = #{id},
+		PASSWORD = #{password},
+		NAME = #{name},
+		AGE = #{age},
+		SEX = #{sex},
+		IDCARD_NO = #{idcardNo},
+		MEMBERSHIP_NO = #{membershipNo},
+		CLASS_NO = #{classNo},
+		PHONE_NO = #{phoneNo},
+		TELEPHONE_NO = #{telephoneNo},
+		QQ_NO = #{qqNo},
+		EMAIL = #{email},
+		ADDRESS = #{address},
+		IMAGE = #{image},
+		MODIFY_DATE = now()
+	WHERE NO = #{no}
+	</update>
 </mapper>
