@@ -104,4 +104,8 @@ public class ClassService {
 	public void updateClassSloganByNo(int no, String slogan) {
 		classRepository.updateClassSloganByNo(no, slogan);
 	}
+
+	public List<Class> selectClassByTeacherId(String teacherId){
+		return classRepository.selectClassByTeacherId(teacherId);
+	};
 }

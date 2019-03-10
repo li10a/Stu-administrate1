@@ -34,7 +34,7 @@ public class AdminStudentController {
 	private Logger logger = LoggerFactory.getLogger(AdminStudentController.class);
 
 	@Autowired
-	StudentService studentService;
+	private StudentService studentService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")

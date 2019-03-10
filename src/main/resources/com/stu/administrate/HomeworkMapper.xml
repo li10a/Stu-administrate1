@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stu.administrate.repository.HomeworkRepository">
+
+	<insert id="insertHomework">
+	INSERT INTO HOMEWORK (TITLE, TASK, CLASS_NO, TEACHER_Id, REGISTER_DATE, MODIFY_DATE)
+	VALUES (#{title}, #{task}, #{classNo}, #{teacherId}, now(), now())
+	</insert>
+
+	<select id="selectAllHomeworkByTeacher" resultType="homework">
+	SELECT
+		NO, TITLE, TASK, CLASS_NO, TEACHER_ID, REGISTER_DATE, MODIFY_DATE
+	FROM
+		HOMEWORK
+	WHERE
+		TEACHER_ID LIKE '%${teacherId}%'
+	</select>
+
+	<select id="selectHomeworkByNo" resultType="homework">
+	SELECT
+		NO, TITLE, TASK, CLASS_NO, TEACHER_ID, REGISTER_DATE, MODIFY_DATE
+	FROM
+		HOMEWORK
+	WHERE
+		NO = #{no}
+	</select>
+
+	<update id="updateHomeworkByNo">
+	UPDATE HOMEWORK
+	SET TITLE = #{title},
+		TASK = #{task}
+	WHERE
+		NO = #{no}
+	</update>
+
+	<delete id="deleteHomeworkByNo">
+	DELETE FROM HOMEWORK
+	WHERE
+		NO = #{no}
+	</delete>
+</mapper>

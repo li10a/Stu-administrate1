@@ -12,17 +12,17 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>学生管理系统 - 班级情报</title>
+    <title>学生管理系统 - 作业情报</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script>
-	function goModifyClassForm(classNo) {
-		location.href="/teacher/modifyClassSloganForm?no=" + classNo;
+	function goModifyHomeworkForm(homeworkNo) {
+		location.href="/teacher/modifyHomeworkForm?no=" + homeworkNo;
 	}
-	function goAddHomeworkForm(classNo) {
-		location.href="/teacher/addHomeworkForm?classNo=" + classNo;
+	function deleteHomeworkForm(homeworkNo) {
+		location.href="/teacher/deleteHomework?no=" + homeworkNo;
 	}
     </script>
   </head>
@@ -36,41 +36,34 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/teacher/classList">班级管理<span class="sr-only">(current)</span></a></li>
-            <li><a href="/teacher/homeworkList">作业管理</a></li>
+            <li><a href="/teacher/classList">班级管理</a></li>
+            <li class="active"><a href="/teacher/homeworkList">作业管理 <span class="sr-only">(current)</span></a></li>
             <li><a href="/teacher/studentList">学生用户管理</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">班级列表</h2>
+          <h2 class="sub-header">作业列表</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th>#</th>
                   <th>班级名字</th>
-                  <th>班级人数</th>
-                  <th>班级宣传语</th>
+                  <th>作业标题</th>
+                  <th>已提交作业学生</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${classList}" var="class1">
+              	<c:forEach items="${homeworkList}" var="homework">
               	  <tr>
-              	    <td>${class1.no }</td>
-              	    <td>${class1.name }</td>
-                    <td>${class1.studentCnt }</td>
-                    <c:choose>
-					<c:when test="${fn:length(class1.slogan) >= 15}">
-						<td>${fn:substring(class1.slogan, 0, 15)}..</td>
-					</c:when>
-					<c:otherwise>
-						<td>${class1.slogan}</td>
-					</c:otherwise>
-              	    </c:choose>
+              	    <td>${homework.no}</td>
+              	    <td>${homework.className}</td>
+                    <td>${homework.title}</td>
+                    <td>${homework.commitStudentCnt}</td>
                     <td>
-                    	<button type="button" class="btn btn-primary" onclick="goAddHomeworkForm(${class1.no})">作业添加</button>
-                    	<button type="button" class="btn btn-default" onclick="goModifyClassForm(${class1.no})">编辑班级宣传语</button>
+                    	<button type="button" class="btn btn-default" onclick="goModifyHomeworkForm(${homework.no})">作业编辑</button>
+                    	<button type="button" class="btn btn-default" onclick="deleteHomeworkForm(${homework.no})">删除</button>
                     </td>
                   </tr>
               	</c:forEach>

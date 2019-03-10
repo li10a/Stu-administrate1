@@ -12,13 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stu.administrate.model.Class;
-import com.stu.administrate.model.User;
 import com.stu.administrate.service.ClassService;
 import com.stu.administrate.type.ForwardPageType;
 import com.stu.administrate.util.PageInfo;
@@ -30,7 +28,7 @@ public class AdminClassController {
 	private Logger logger = LoggerFactory.getLogger(AdminClassController.class);
 
 	@Autowired
-	ClassService classService;
+	private ClassService classService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")

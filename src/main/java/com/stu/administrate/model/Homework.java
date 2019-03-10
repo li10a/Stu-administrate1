@@ -18,6 +18,12 @@ public class Homework {
 
 	private int classNo;
 
+	private String className;
+
+	private int commitStudentCnt;
+
+	private String teacher_id;
+
 	private Date registerDate;
 
 	private Date modifyDate;

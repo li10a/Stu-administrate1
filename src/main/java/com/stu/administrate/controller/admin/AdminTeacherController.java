@@ -28,7 +28,7 @@ public class AdminTeacherController {
 	private Logger logger = LoggerFactory.getLogger(AdminTeacherController.class);
 
 	@Autowired
-	TeacherService teacherService;
+	private TeacherService teacherService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")

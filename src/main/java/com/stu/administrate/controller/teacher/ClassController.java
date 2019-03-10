@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stu.administrate.model.Class;
+import com.stu.administrate.model.User;
 import com.stu.administrate.service.ClassService;
 import com.stu.administrate.type.ForwardPageType;
 import com.stu.administrate.util.PageInfo;
@@ -27,15 +29,15 @@ public class ClassController {
 	private Logger logger = LoggerFactory.getLogger(ClassController.class);
 
 	@Autowired
-	ClassService classService;
+	private ClassService classService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")
 	private PropertiesFactoryBean propertyConfigurer;
 
 	@GetMapping("/classList")
-	public String getClassList(Model model, @RequestParam(name="page", defaultValue="1") int currentPage) {
-		List<Class> classList = classService.selectAllClass();
+	public String getClassList(Model model, @RequestParam(name="page", defaultValue="1") int currentPage, @RequestAttribute("loginUser") User loginUser) {
+		List<Class> classList = classService.selectClassByTeacherId(loginUser.getId());
 
 		PageInfo pageInfo = new PageInfo(currentPage, classList.size());
 
