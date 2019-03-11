@@ -23,9 +23,9 @@ import com.stu.administrate.type.ForwardPageType;
 
 @Controller
 @RequestMapping("/teacher")
-public class HomeworkController {
+public class TeacherHomeworkController {
 
-	private Logger logger = LoggerFactory.getLogger(HomeworkController.class);
+	private Logger logger = LoggerFactory.getLogger(TeacherHomeworkController.class);
 
 	@Autowired
 	ClassService classService;

@@ -46,4 +46,8 @@ public class HomeworkService {
 	public void deleteHomeworkByNo(int no) {
 		homeworkRepository.deleteHomeworkByNo(no);
 	}
+	
+	public List<Homework> selectAllHomeworkByClassNoDesc(int classNo) {
+		return homeworkRepository.selectAllHomeworkByClassNoDesc(classNo);
+	}
 }

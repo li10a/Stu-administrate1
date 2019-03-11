@@ -10,7 +10,8 @@ import com.stu.administrate.model.Homework;
 @Repository
 public interface HomeworkRepository {
 
-	void insertHomework(@Param("title") String title, @Param("task") String task, @Param("classNo") int classNo, @Param("teacherId") String teacherId);
+	void insertHomework(@Param("title") String title, @Param("task") String task, @Param("classNo") int classNo,
+			@Param("teacherId") String teacherId);
 
 	List<Homework> selectAllHomeworkByTeacher(@Param("teacherId") String teacherId);
 
@@ -19,4 +20,6 @@ public interface HomeworkRepository {
 	void updateHomeworkByNo(@Param("no") int no, @Param("title") String title, @Param("task") String task);
 
 	void deleteHomeworkByNo(@Param("no") int no);
+
+	List<Homework> selectAllHomeworkByClassNoDesc(@Param("classNo") int classNo);
 }

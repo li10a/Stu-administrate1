@@ -27,6 +27,7 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
 			request.setAttribute("msg", propertyConfigurer.getObject().getProperty("error.not.login"));
 			request.setAttribute("url", "/login");
 			request.getRequestDispatcher("/WEB-INF/jsp/common/forward/gopage.jsp").forward(request, response);
+			return false;
 		}
 
 		User user = this.getLoginUser(loginCookie);
@@ -43,6 +44,7 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
 		loginUser.setId(loginUserInfo[1]);
 		loginUser.setName(loginUserInfo[2]);
 		loginUser.setType(loginUserInfo[3]);
+		loginUser.setClassNo(Integer.valueOf(loginUserInfo[4]));
 		return loginUser;
 	}
 

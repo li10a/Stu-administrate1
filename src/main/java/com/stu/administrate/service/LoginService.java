@@ -48,7 +48,7 @@ public class LoginService {
 	}
 
 	public void setCookie(User user, HttpServletResponse response) {
-		String cookieValue = user.getNo() + "&" + user.getId() + "&" + user.getName() + "&" + user.getType();
+		String cookieValue = user.getNo() + "&" + user.getId() + "&" + user.getName() + "&" + user.getType() + "&" + user.getClassNo();
 		CookieUtil.setCookie(response, "user", cookieValue);
 	}
 

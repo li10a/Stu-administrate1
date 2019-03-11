@@ -38,4 +38,15 @@
 	WHERE
 		NO = #{no}
 	</delete>
+
+	<select id="selectAllHomeworkByClassNoDesc" resultType="homework">
+	SELECT
+		NO, TITLE, TASK, CLASS_NO, TEACHER_ID, REGISTER_DATE, MODIFY_DATE
+	FROM
+		HOMEWORK
+	WHERE
+		CLASS_NO = #{classNo}
+	ORDER BY REGISTER_DATE DESC
+	LIMIT 5
+	</select>
 </mapper>

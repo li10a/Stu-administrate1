@@ -24,9 +24,9 @@ import com.stu.administrate.util.PageInfo;
 
 @Controller
 @RequestMapping("/teacher")
-public class ClassController {
+public class TeacherClassController {
 
-	private Logger logger = LoggerFactory.getLogger(ClassController.class);
+	private Logger logger = LoggerFactory.getLogger(TeacherClassController.class);
 
 	@Autowired
 	private ClassService classService;
