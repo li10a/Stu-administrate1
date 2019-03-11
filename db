@@ -1,6 +1,7 @@
 select * from user_admin;
 select * from class;
 select * from user_student;
+select * from homework;
 
 /* test */
 
