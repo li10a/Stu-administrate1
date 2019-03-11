@@ -44,6 +44,10 @@ public class StudentService {
 		return classRepository.selectMinClassNo();
 	}
 
+	public int getMinClassNoByTeacherId(String teacherId) {
+		return classRepository.selectMinClassNoByTeacherId(teacherId);
+	}
+
 	public List<User> selectAllStudentByClassNo(int classNo) {
 		return userRepository.selectAllStudentByClassNo(classNo);
 	}

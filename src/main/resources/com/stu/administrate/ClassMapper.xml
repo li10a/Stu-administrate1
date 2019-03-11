@@ -61,6 +61,15 @@
 		CLASS 
 	</select>
 
+	<select id="selectMinClassNoByTeacherId" resultType="int">
+	SELECT
+		MIN(NO)
+	FROM
+		CLASS
+	WHERE
+		TEACHER_ID LIKE '%${teacherId}%'
+	</select>
+
 	<update id="updateClassSloganByNo">
 	UPDATE CLASS
 	SET SLOGAN = #{slogan}

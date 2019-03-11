@@ -1,4 +1,4 @@
-package com.stu.administrate.controller.admin;
+package com.stu.administrate.controller.teacher;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,23 +12,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.stu.administrate.model.User;
+import com.stu.administrate.service.ClassService;
 import com.stu.administrate.service.StudentService;
 import com.stu.administrate.type.ForwardPageType;
 import com.stu.administrate.util.PageInfo;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminStudentController {
+@RequestMapping("/teacher")
+public class StudentController {
 
-	private Logger logger = LoggerFactory.getLogger(AdminStudentController.class);
+	private Logger logger = LoggerFactory.getLogger(StudentController.class);
 
 	@Autowired
 	private StudentService studentService;
+
+	@Autowired
+	private ClassService classService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")
@@ -36,29 +41,30 @@ public class AdminStudentController {
 
 	@GetMapping("/studentList")
 	public String studentList(Model model, @RequestParam(name = "classNo", required = false) Integer classNo,
-			@RequestParam(name = "page", defaultValue = "1") int currentPage) {
+			@RequestParam(name = "page", defaultValue = "1") int currentPage,
+			@RequestAttribute("loginUser") User loginUser) {
 		if (classNo == null) {
-			classNo = studentService.getMinClassNo();
+			classNo = studentService.getMinClassNoByTeacherId(loginUser.getId());
 		}
-		model.addAttribute("classList", studentService.getAllClass());
+		model.addAttribute("classList", classService.selectClassByTeacherId(loginUser.getId()));
 		List<User> studentList = studentService.selectAllStudentByClassNo(classNo);
 		PageInfo pageInfo = new PageInfo(currentPage, studentList.size());
 		model.addAttribute("studentList", studentList.subList(pageInfo.getStartRow() - 1, pageInfo.getEndRow()));
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("classNo", classNo);
-		return "/admin/studentList";
+		return "/teacher/studentList";
 	}
 
 	@GetMapping("/addStudentForm")
-	public String addStudentForm(Model model) {
-		model.addAttribute("classList", studentService.getAllClass());
-		return "/admin/addStudent";
+	public String addStudentForm(Model model, @RequestAttribute("loginUser") User loginUser) {
+		model.addAttribute("classList", classService.selectClassByTeacherId(loginUser.getId()));
+		return "/teacher/addStudent";
 	}
 
 	@PostMapping("/addStudent")
 	public String addStudent(Model model, User user, @RequestParam("file") MultipartFile file) {
 		studentService.addStudent(user, file);
-		model.addAttribute("url", "/admin/studentList?classNo=" + user.getClassNo());
+		model.addAttribute("url", "/teacher/studentList?classNo=" + user.getClassNo());
 		try {
 			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.add"));
 		} catch (IOException e) {
@@ -75,22 +81,22 @@ public class AdminStudentController {
 		} catch (IOException e) {
 			// do nothing
 		}
-		model.addAttribute("url", "/admin/studentList?classNo=" + classNo);
+		model.addAttribute("url", "/teacher/studentList?classNo=" + classNo);
 		return ForwardPageType.FORWARD_GOPAGE.getForwardPage();
-		
+
 	}
 
 	@GetMapping("/modifyStudentForm")
 	public String modifyStudentForm(Model model, @RequestParam("id") String id) {
 		model.addAttribute("studentInfo", studentService.selectStudentById(id));
 		model.addAttribute("classList", studentService.getAllClass());
-		return "/admin/modifyStudent";
+		return "/teacher/modifyStudent";
 	}
 
 	@PostMapping("/modifyStudent")
 	public String modifyStudent(Model model, User user, @RequestParam("file") MultipartFile file) {
 		studentService.updateStudent(user, file);
-		model.addAttribute("url", "/admin/studentList?classNo=" + user.getClassNo());
+		model.addAttribute("url", "/teacher/studentList?classNo=" + user.getClassNo());
 		try {
 			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.update"));
 		} catch (IOException e) {
