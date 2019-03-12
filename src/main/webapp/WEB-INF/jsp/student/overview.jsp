@@ -46,7 +46,7 @@
 				<div class="col-md-6 column">
 				<h4>最新发布的作业</h4>
 				<c:forEach items="${homeworkList}" var="homework">
-				<p><a href="">${homework.title}</a></p>
+				<p><a href="/student/goHomeworkUploadForm?homeworkNo=${homework.no}">${homework.title}</a><c:if test="${homework.commited }"><img src="/images/timg.jpg" width="20px" height="20px" /></c:if></p>
 				</c:forEach>
 				</div>
 				<div class="col-md-6 column">

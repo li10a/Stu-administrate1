@@ -20,4 +20,23 @@
 	SET HOMEWORK_PATH = #{homeworkPath}
 	WHERE HOMEWORK_NO = #{homeworkNo}
 	</update>
+
+	<select id="selectHomeworkCommitHistoryByHomeworkNoAndStudentNo" resultType="homeworkCommitHistory">
+	SELECT
+		NO, HOMEWORK_NO, STUDENT_NO, HOMEWORK_PATH, SCORE, REGISTER_DATE, MODIFY_DATE
+	FROM
+		HOMEWORK_COMMIT_HISTORY
+	WHERE
+		HOMEWORK_NO = #{homeworkNo}
+	AND STUDENT_NO = #{studentNo}
+	</select>
+
+	<select id="selectHomeworkCommitHistoryByHomeworkNo" resultType="homeworkCommitHistory">
+	SELECT
+		NO, HOMEWORK_NO, STUDENT_NO, HOMEWORK_PATH, SCORE, REGISTER_DATE, MODIFY_DATE
+	FROM
+		HOMEWORK_COMMIT_HISTORY
+	WHERE
+		HOMEWORK_NO = #{homeworkNo}
+	</select>
 </mapper>

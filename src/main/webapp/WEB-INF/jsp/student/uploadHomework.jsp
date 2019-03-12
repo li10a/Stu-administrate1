@@ -18,7 +18,7 @@
     <script src="/js/ie-emulation-modes-warning.js"></script>
     <script>
     function uploadHomework() {
-		document.addHomeworkForm.submit();
+		document.uploadHomeworkForm.submit();
     }
     </script>
   </head>
@@ -40,17 +40,17 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="sub-header">上传作业</h2>
           <div class="table-responsive">
-          <form name="uploadHomeworkForm" class="form-horizontal" action="/student/uploadHomework" method="post" target="submitfrm">
-          <input type="hidden" name="homeworkNo" value="${homework.no}">
+          <form name="uploadHomeworkForm" class="form-horizontal" action="/student/uploadHomework" method="post" target="submitfrm" enctype="multipart/form-data">
+          <input type="hidden" name="homeworkNo" value="${homeworkInfo.no}">
           <table class="table table-bordered">
 		    <tbody>
 		      <tr>
 		        <td><label class="control-label" for="input01">标题： </label></td>
-		        <td><input type="text" class="input-xlarge" value="${homework.title }"></td>
+		        <td><input type="text" class="input-xlarge" value="${homeworkInfo.title }" disabled></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label" for="input01">作业内容： </label></td>
-		        <td><textarea rows="10" cols="80" value="${homework.task }"> </textarea></td>
+		        <td><textarea rows="10" cols="80" disabled>${homeworkInfo.task }</textarea></td>
 		      </tr>
 		      <tr>
 		        <td><label class="control-label" for="input01">作业上传： </label></td>

@@ -22,6 +22,8 @@ public class Homework {
 
 	private int commitStudentCnt;
 
+	private boolean commited;
+
 	private String teacher_id;
 
 	private Date registerDate;

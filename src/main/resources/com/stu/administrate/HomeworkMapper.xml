@@ -47,6 +47,5 @@
 	WHERE
 		CLASS_NO = #{classNo}
 	ORDER BY REGISTER_DATE DESC
-	LIMIT 5
 	</select>
 </mapper>
