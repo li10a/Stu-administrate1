@@ -41,6 +41,9 @@ public class HomeworkCommitHistoryService {
 			}
 			
 		}
+		for (HomeworkCommitHistory homeworkCommitHistory : homeworkCommitHistoryList) {
+			homeworkCommitHistory.setHomeworkTitle(homeworkRepository.selectHomeworkByNo(homeworkCommitHistory.getNo()).getTitle());
+		}
 		return homeworkCommitHistoryList;
 	}
 
@@ -64,4 +67,7 @@ public class HomeworkCommitHistoryService {
 		}
 	}
 
+	public void updateScore(int homeworkCommitHistoryNo, int score) {
+		homeworkCommitHistoryRepository.updateScore(homeworkCommitHistoryNo, score);
+	}
 }

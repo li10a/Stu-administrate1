@@ -19,4 +19,6 @@ public interface HomeworkCommitHistoryRepository {
 	void updateHomeworkCommitHistoryHomeworkPathByHomeworkNo(@Param("homeworkNo") int homeworkNo, @Param("homeworkPath") String homeworkPath);
 
 	List<HomeworkCommitHistory> selectHomeworkCommitHistoryByHomeworkNo(@Param("homeworkNo") int homeworkNo);
+	
+	void updateScore(@Param("no") int no, @Param("score") int score);
 }

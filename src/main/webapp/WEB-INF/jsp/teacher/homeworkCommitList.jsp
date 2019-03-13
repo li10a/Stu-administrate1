@@ -12,17 +12,15 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>学生管理系统 - 作业情报</title>
+    <title>学生管理系统 - 作业提交状况</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dashboard.css" rel="stylesheet" />
     <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
-	function goModifyHomeworkForm(homeworkNo) {
-		location.href="/teacher/modifyHomeworkForm?no=" + homeworkNo;
-	}
-	function deleteHomeworkForm(homeworkNo) {
-		location.href="/teacher/deleteHomework?no=" + homeworkNo;
+	function commitScore(no) {
+		$("#commitForm"+no).submit();
 	}
     </script>
   </head>
@@ -48,33 +46,24 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>班级名字</th>
-                  <th>作业标题</th>
-                  <th>已提交作业学生</th>
+                  <th>学生姓名</th>
+                  <th>分数</th>
                   <th>操作</th>
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${homeworkList}" var="homework">
+              	<c:forEach items="${homeworkCommitList}" var="homeworkHistory">
+              	  <form id="commitForm${homeworkHistory.no}" class="form-horizontal" action="/teacher/commitScore" method="post" target="submitfrm">
+              	  <input type="hidden" name="no" value="${homeworkHistory.no}"/>
               	  <tr>
-              	    <td>${homework.no}</td>
-              	    <td>${homework.className}</td>
-                    <td>${homework.title}</td>
+              	    <td>${homeworkHistory.no}</td>
+              	    <td>${homeworkHistory.studentName}</td>
+                    <td><input type="text" name="score" placeholder="" class="input-xlarge"></td>
                     <td>
-                    <c:choose>
-                    	<c:when test="${homework.commitStudentCnt > 0}">
-                    		<a href="/teacher/goCommitScoreForm?homeworkNo=${homework.no }">${homework.commitStudentCnt}</a>
-                    	</c:when>
-                    	<c:otherwise>
-                    		${homework.commitStudentCnt}
-                    	</c:otherwise>
-                    </c:choose>
-                    </td>
-                    <td>
-                    	<button type="button" class="btn btn-default" onclick="goModifyHomeworkForm(${homework.no})">作业编辑</button>
-                    	<button type="button" class="btn btn-default" onclick="deleteHomeworkForm(${homework.no})">删除</button>
+                    	<button type="button" class="btn btn-default" onclick="commitScore(${homeworkHistory.no})">提交分数</button>
                     </td>
                   </tr>
+                  </form>
               	</c:forEach>
               </tbody>
             </table>
@@ -88,7 +77,7 @@
       </div>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <iframe name="submitfrm" style="display:none"></iframe>
   </body>
 </html>

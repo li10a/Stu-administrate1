@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.stu.administrate.model.Class;
 import com.stu.administrate.model.Homework;
+import com.stu.administrate.model.HomeworkCommitHistory;
+import com.stu.administrate.model.User;
 import com.stu.administrate.repository.ClassRepository;
 import com.stu.administrate.repository.HomeworkCommitHistoryRepository;
 import com.stu.administrate.repository.HomeworkRepository;
+import com.stu.administrate.repository.UserRepository;
 
 @Service
 public class HomeworkService {
@@ -22,6 +25,9 @@ public class HomeworkService {
 
 	@Autowired
 	private HomeworkCommitHistoryRepository homeworkCommitHistoryRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public void insertHomework(String title, String task, int classNo, String teacherId) {
 		homeworkRepository.insertHomework(title, task, classNo, teacherId);
@@ -58,5 +64,14 @@ public class HomeworkService {
 			}
 		}
 		return homeworkList;
+	}
+	
+	public List<HomeworkCommitHistory> selectHomeworkCommitHistoryByHomeworkNo(int homeworkNo) {
+		List<HomeworkCommitHistory> historyList = homeworkCommitHistoryRepository.selectHomeworkCommitHistoryByHomeworkNo(homeworkNo);
+		for (HomeworkCommitHistory homeworkCommitHistory : historyList) {
+			User student = userRepository.selectStudentByNo(homeworkCommitHistory.getStudentNo());
+			homeworkCommitHistory.setStudentName(student.getName());
+		}
+		return historyList;
 	}
 }

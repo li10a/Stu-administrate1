@@ -13,8 +13,12 @@ public class HomeworkCommitHistory {
 	private int no;
 
 	private int homeworkNo;
+	
+	private String homeworkTitle;
 
 	private int studentNo;
+
+	private String studentName;
 
 	private String homeworkPath;
 

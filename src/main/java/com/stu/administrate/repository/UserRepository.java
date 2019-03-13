@@ -13,6 +13,8 @@ public interface UserRepository {
 	User selectAdminUserById(@Param("id") String id);
 
 	User selectStudentById(@Param("id") String id);
+	
+	User selectStudentByNo(@Param("no") int no);
 
 	void insertTeacherUser(@Param("id") String id, @Param("name") String name, @Param("password") String password);
 

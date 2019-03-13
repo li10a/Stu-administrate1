@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.stu.administrate.model.Homework;
 import com.stu.administrate.model.User;
 import com.stu.administrate.service.ClassService;
+import com.stu.administrate.service.HomeworkCommitHistoryService;
 import com.stu.administrate.service.HomeworkService;
 import com.stu.administrate.type.ForwardPageType;
 
@@ -28,10 +29,13 @@ public class TeacherHomeworkController {
 	private Logger logger = LoggerFactory.getLogger(TeacherHomeworkController.class);
 
 	@Autowired
-	ClassService classService;
+	private ClassService classService;
 
 	@Autowired
-	HomeworkService homeworkService;
+	private HomeworkService homeworkService;
+	
+	@Autowired
+	private HomeworkCommitHistoryService homeworkCommitHistoryService;
 
 	@Autowired
 	@Qualifier("propertyConfigurer")
@@ -88,6 +92,24 @@ public class TeacherHomeworkController {
 		model.addAttribute("url", "/teacher/homeworkList");
 		try {
 			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.admin.delete"));
+		} catch (IOException e) {
+			logger.error("message key error!");
+		}
+		return ForwardPageType.FORWARD_GOPAGE.getForwardPage();
+	}
+	
+	@GetMapping("/goCommitScoreForm")
+	public String goCommitScoreForm(Model model, @RequestParam("homeworkNo") int homeworkNo) {
+		model.addAttribute("homeworkCommitList", homeworkService.selectHomeworkCommitHistoryByHomeworkNo(homeworkNo));
+		return "/teacher/homeworkCommitList";
+	}
+
+	@PostMapping("/commitScore")
+	public String commitScore(Model model, @RequestParam("no") int no, @RequestParam("score") int score) {
+		homeworkCommitHistoryService.updateScore(no, score);
+		model.addAttribute("url", "/teacher/homeworkList");
+		try {
+			model.addAttribute("msg", propertyConfigurer.getObject().getProperty("success.teacher.commit.score"));
 		} catch (IOException e) {
 			logger.error("message key error!");
 		}

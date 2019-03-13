@@ -39,4 +39,10 @@
 	WHERE
 		HOMEWORK_NO = #{homeworkNo}
 	</select>
+
+	<update id="updateScore">
+	UPDATE HOMEWORK_COMMIT_HISTORY
+	SET SCORE = #{score}
+	WHERE NO = #{no}
+	</update>
 </mapper>

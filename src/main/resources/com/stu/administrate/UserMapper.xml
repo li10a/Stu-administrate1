@@ -20,6 +20,15 @@
 			ID = #{id}
 	</select>
 
+	<select id="selectStudentByNo" resultType="user">
+		SELECT
+			NO, ID, NAME, AGE, PASSWORD, SEX, IDCARD_NO, MEMBERSHIP_NO, PHONE_NO, TELEPHONE_NO, QQ_NO, EMAIL, TYPE, IMAGE, ADDRESS, CLASS_NO, REGISTER_DATE, MODIFY_DATE
+		FROM 
+			USER_STUDENT
+		WHERE
+			No = #{no}
+	</select>
+
 	<insert id="insertTeacherUser">
 		INSERT INTO USER_ADMIN (ID, NAME, PASSWORD, TYPE, CLASS_NO, REGISTER_DATE)
 		VALUEs (#{id}, #{name}, #{password}, 'T', -1, now())

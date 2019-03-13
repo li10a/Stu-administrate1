@@ -36,10 +36,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="jumbotron">
 				<h1>
-					Hello, world!
+					${classInfo.name }
 				</h1>
 				<p>
-					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+					${classInfo.slogan }
 				</p>
 			</div>
 			<div class="row clearfix">
@@ -52,7 +52,7 @@
 				<div class="col-md-6 column">
 				<h4>最新获得的学分</h4>
 				<c:forEach items="${homeworkCommitHistoryList}" var="homeworkCommitHistory">
-				<p><a href="">${homeworkCommitHistory.score}</a></p>
+				<p><a href="">[${homeworkCommitHistory.homeworkTitle}] ${homeworkCommitHistory.score}学分</a></p>
 				</c:forEach>
 				</div>
 			</div>
